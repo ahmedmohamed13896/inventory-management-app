@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
@@ -18,7 +18,7 @@ import { IInventoryItem } from '../../../core/models/inventory-model';
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   templateUrl: './inventory-detail.component.html',
 })
-export class InventoryDetailComponent {
+export class InventoryDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private inventoryService = inject(InventoryService);
   private snackBar = inject(MatSnackBar);
@@ -29,14 +29,16 @@ export class InventoryDetailComponent {
   inventoryForm!: FormGroup;
 
   constructor() {
-    this.id = this.route.snapshot.paramMap.get('id');
     // Initialize the reactive form with validation
     this.inventoryForm = this.fb.group({
       name: ['', Validators.required],
       category: ['', Validators.required],
       stockQuantity: [0, [Validators.required, Validators.min(0)]],
     });
+  }
 
+  ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id');
     if (this.id === 'new') {
       this.inventoryItem = {
         id: 0,
@@ -50,6 +52,7 @@ export class InventoryDetailComponent {
         const item = items.find((i) => i.id === Number(this.id));
         if (item) {
           this.inventoryItem = { ...item };
+          this.inventoryForm.patchValue(this.inventoryItem);
         }
       });
     }

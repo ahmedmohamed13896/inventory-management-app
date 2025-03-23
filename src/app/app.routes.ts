@@ -7,5 +7,5 @@ export const routes: Routes = [
       import('./inventory/inventory-routes').then((m) => m.inventoryRoutes),
   },
   { path: '', redirectTo: 'inventory', pathMatch: 'full' },
-  { path: '**', redirectTo: 'inventory' }, // Handle unknown routes
+  { path: '**', redirectTo: 'inventory', pathMatch: 'full' }, // Handle unknown routes
 ];
