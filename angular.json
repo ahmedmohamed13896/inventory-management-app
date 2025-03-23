@@ -41,6 +41,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/inventory-management-app/",
               "budgets": [
                 {
                   "type": "initial",
