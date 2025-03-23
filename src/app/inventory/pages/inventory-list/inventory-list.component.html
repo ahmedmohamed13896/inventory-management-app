@@ -1,0 +1,105 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between gap-3">
+    <h2 class="mb-3">Inventory List</h2>
+    <button mat-raised-button color="primary" (click)="addNewItem()">
+      <mat-icon>add</mat-icon> Create New Item
+    </button>
+  </div>
+  <mat-card>
+    <div class="d-flex justify-content-between mb-3">
+      <mat-form-field class="w-75">
+        <mat-label>Search by name</mat-label>
+        <input
+          matInput
+          [(ngModel)]="searchQuery"
+          (ngModelChange)="onSearchChange()"
+          placeholder="Search..."
+        />
+      </mat-form-field>
+      <mat-form-field class="w-25">
+        <mat-label>Filter by Stock</mat-label>
+        <mat-select
+          [(ngModel)]="stockFilter"
+          (ngModelChange)="onFilterChange()"
+        >
+          <mat-option value="">All</mat-option>
+          <mat-option value="low">Low Stock (&lt; 5)</mat-option>
+          <mat-option value="inStock">In Stock (≥ 5)</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <table
+      mat-table
+      [dataSource]="filteredInventory"
+      class="mat-elevation-z8"
+    >
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let item">{{ item.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <td mat-cell *matCellDef="let item">{{ item.category }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="stockQuantity">
+        <th mat-header-cell *matHeaderCellDef>Stock</th>
+        <td
+          mat-cell
+          *matCellDef="let item"
+          [ngClass]="{ 'text-danger': item.stockQuantity < 5 }"
+        >
+          {{ item.stockQuantity }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastUpdated">
+        <th mat-header-cell *matHeaderCellDef>Last Updated</th>
+        <td mat-cell *matCellDef="let item">
+          {{ item.lastUpdated | date : 'dd/MM/YYYY h:mm a' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let item">
+          <button mat-button color="primary" (click)="editItem(item.id)">
+            Edit
+          </button>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="[
+          'name',
+          'category',
+          'stockQuantity',
+          'lastUpdated',
+          'actions'
+        ]"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="
+          let row;
+          columns: [
+            'name',
+            'category',
+            'stockQuantity',
+            'lastUpdated',
+            'actions'
+          ]
+        "
+      ></tr>
+    </table>
+    <div
+      class="text-center p-3"
+      *ngIf="!filteredInventory?.length && !loading"
+    >
+      No Items found for this search cretria
+    </div>
+  </mat-card>
+</div>

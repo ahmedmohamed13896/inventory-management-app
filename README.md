@@ -1,59 +1,99 @@
-# InventoryManagementApp
+# Inventory Management System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
+## 📌 Overview
 
-## Development server
+This project is an **Inventory Management System** built with **Angular**. It allows users to manage inventory items efficiently by adding, editing, searching, and filtering products.
 
-To start a local development server, run:
+## 🏗️ Architectural Decisions
 
-```bash
-ng serve
+### 1️⃣ **Modular Structure**
+
+- The application is structured using **feature modules** for better scalability.
+- Routes are lazily loaded to optimize performance.
+
+### 2️⃣ **State Management**
+
+- Uses **RxJS BehaviorSubject** in `InventoryService` to manage the inventory state reactively.
+- Ensures real-time UI updates without unnecessary API calls.
+
+### 3️⃣ **Lazy Loading**
+
+- Implemented lazy loading in the routing module to improve application performance.
+
+### 4️⃣ **Reactive Forms**
+
+- Switched from **Template-driven forms** to **Reactive Forms** for better validation and control over form state.
+
+### 5️⃣ **Debounced Search**
+
+- Implemented **debounceTime** in `searchQuery` to optimize filtering performance and reduce redundant processing.
+
+### 6️⃣ **Angular Material for UI**
+
+- Used **Angular Material** for a modern UI, including `MatTable`, `MatFormField`, and `MatSnackBar`.
+
+### 7️⃣ **Unit Testing**
+
+- Added **Jasmine & Karma** unit tests for services and components.
+
+---
+
+## 🚀 Tech Stack
+
+| Technology           | Purpose                                 |
+| -------------------- | --------------------------------------- |
+| **Angular 17+**      | Frontend framework                      |
+| **Angular CLI**      | Project setup & build tool              |
+| **RxJS**             | State management & reactive programming |
+| **Angular Material** | UI components                           |
+| **Bootstrap**        | Additional styling                      |
+| **Karma & Jasmine**  | Unit testing                            |
+
+---
+
+## 📂 Folder Structure
+
+```
+📦 inventory-management
+ ┣ 📂 src
+ ┃ ┣ 📂 app
+ ┃ ┃ ┣ 📂 core
+ ┃ ┃ ┃ ┣ 📄 inventory.service.ts  // Inventory state management
+ ┃ ┃ ┣ 📂 features
+ ┃ ┃ ┃ ┣ 📂 inventory-list  // List view with search & filter
+ ┃ ┃ ┃ ┣ 📂 inventory-detail // Create & edit form (Reactive Forms)
+ ┃ ┃ ┣ 📂 shared  // Shared UI components & Material module
+ ┃ ┃ ┣ 📄 app-routing.module.ts  // Lazy loading routes
+ ┃ ┃ ┣ 📄 app.component.ts  // Root component
+ ┃ ┣ 📂 assets  // Static assets (icons, images)
+ ┣ 📄 angular.json  // Angular config file
+ ┣ 📄 package.json  // Dependencies & scripts
+ ┣ 📄 README.md  // Documentation
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🛠️ Installation & Setup
 
 ```bash
-ng generate component component-name
+# Clone the repository
+git clone https://github.com/your-repo/inventory-management.git
+cd inventory-management
+
+# Install dependencies
+npm install
+
+# Run the application
+ng serve -o
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## ✅ Features Implemented
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+✔ Add, Edit, and Delete Inventory Items  
+✔ Search & Filter with Debounced Input  
+✔ State Management with RxJS  
+✔ UI with Angular Material  
+✔ Optimized Performance with Lazy Loading  
+✔ Unit Testing with Jasmine & Karma
